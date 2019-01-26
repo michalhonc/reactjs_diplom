@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import styled, { ThemeProvider, injectGlobal } from 'styled-components';
 
-import Header from './Header';
-import Meta from './Meta';
+import Header from './Header/Header';
+import Meta from './Header/Meta';
 
-import theme from '../components/styles/config/config';
+import theme from './styles/config/config';
+import { MenuProvider } from './Menu/MenuContext';
+import Menu from './Menu/Menu';
   
 
 const StyledPage = styled.div`
     color: ${props => props.theme.color.black};
+    position: relative;
 `;
 
 const Inner = styled.div`
@@ -39,6 +42,7 @@ injectGlobal`
         margin: 0;
         font-size: 1.5rem;
         line-height: 2;
+        height: 100%;
         background-color: ${props => props.theme.color.backgroundGray}
     }
 
@@ -56,13 +60,16 @@ class Page extends Component {
     render() { 
         return (
             <ThemeProvider theme={theme}>
-                <StyledPage>
-                    <Meta />
-                    <Header />
-                    <Inner>
-                        {this.props.children}
-                    </Inner>
-                </StyledPage>
+                <MenuProvider>
+                    <StyledPage>
+                        <Meta />
+                        <Menu />
+                        <Header />
+                        <Inner>
+                            {this.props.children}
+                        </Inner>
+                    </StyledPage>
+                </MenuProvider>
             </ThemeProvider>
         );
     }

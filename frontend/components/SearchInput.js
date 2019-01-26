@@ -2,7 +2,7 @@ import React, { useState, Fragment } from 'react';
 import {  } from 'prop-types';
 import styled from 'styled-components';
 
-import Icon from './Icon';
+import Icon from './Shared/Icon';
 
 const Input = styled.input`
     width: 100%;
@@ -13,6 +13,21 @@ const Input = styled.input`
     background-color: ${props => props.theme.color.white};
 `;
 
+
+const InputWrapper = styled.div`
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    `;
+
+const Submit = styled.input`
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    display: inline;
+    background-color: transparent;
+`;
+
 const StyledIcon = styled.svg`
     position: absolute;
     height: 50%;
@@ -21,20 +36,6 @@ const StyledIcon = styled.svg`
     transform: translateY(-50%);
     right: 2rem;
     fill: ${props => props.theme.color.black}
-`;
-
-const InputWrapper = styled.div`
-    position: relative;
-    margin: 0 auto;
-    width: 50rem;
-`;
-
-const Submit = styled.input`
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    display: inline;
-    background-color: transparent;
 `;
 
 const SearchInput = () => {

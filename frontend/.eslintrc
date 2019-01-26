@@ -80,7 +80,7 @@
         "no-plusplus": "off",
         "import/no-named-as-default": "off",
         "prefer-template": "warn",
-        "comma-dangle": "off",
+        "comma-dangle": 1,
         "prefer-const": "warn",
         "one-var": "off",
         "arrow-body-style": "off",
