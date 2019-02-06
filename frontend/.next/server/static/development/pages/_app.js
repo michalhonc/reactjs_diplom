@@ -142,7 +142,7 @@ var StyledHeader = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.head
 var Logo = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.h1.withConfig({
   displayName: "Header__Logo",
   componentId: "sc-6ii4zc-1"
-})(["font-size:1.8rem;a{padding:0.5rem 1rem;color:white;text-transform:uppercase;text-decoration:none;}"]);
+})(["font-size:1.8rem;a{padding:0.5rem 1rem;color:white;text-decoration:none;}"]);
 var StyledAnchor = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.a.withConfig({
   displayName: "Header__StyledAnchor",
   componentId: "sc-6ii4zc-2"
@@ -156,26 +156,26 @@ var Header = function Header() {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StyledHeader, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 49
+      lineNumber: 48
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Logo, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 50
+      lineNumber: 49
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
     href: "/",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 51
+      lineNumber: 50
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StyledAnchor, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 52
+      lineNumber: 51
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StyledImg, {
@@ -185,10 +185,10 @@ var Header = function Header() {
       lineNumber: 52
     },
     __self: this
-  }), " Trends"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Nav__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }), "Trendy"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Nav__WEBPACK_IMPORTED_MODULE_3__["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 55
+      lineNumber: 57
     },
     __self: this
   }));
@@ -370,7 +370,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _MenuContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MenuContext */ "./components/Menu/MenuContext.js");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "styled-components");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _Shared_Icon__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Shared/Icon */ "./components/Shared/Icon.js");
+/* harmony import */ var _styles_Button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../styles/Button */ "./components/styles/Button.js");
 var _jsxFileName = "/home/michalhonc/git/reactjs/diplom/frontend/components/Menu/Menu.js";
+
+
 
 
 
@@ -378,7 +382,7 @@ var _jsxFileName = "/home/michalhonc/git/reactjs/diplom/frontend/components/Menu
 var StyledWrapper = styled_components__WEBPACK_IMPORTED_MODULE_3___default.a.div.withConfig({
   displayName: "Menu__StyledWrapper",
   componentId: "sc-16he39c-0"
-})(["position:absolute;z-index:999;border-left:1px solid ", ";width:30rem;height:100vh;right:0;top:0;background-color:", ";"], function (props) {
+})(["position:absolute;z-index:999;border-left:1px solid ", ";width:60vw;height:100vh;right:0;top:0;background-color:", ";"], function (props) {
   return props.theme.color.borderInput;
 }, function (props) {
   return props.theme.color.white;
@@ -387,45 +391,67 @@ var StyledBackground = styled_components__WEBPACK_IMPORTED_MODULE_3___default.a.
   displayName: "Menu__StyledBackground",
   componentId: "sc-16he39c-1"
 })(["position:absolute;z-index:999;background-color:rgba(0,0,0,0.5);height:100vh;width:100vw;"]);
+var StyledCloseButton = styled_components__WEBPACK_IMPORTED_MODULE_3___default.a.svg.withConfig({
+  displayName: "Menu__StyledCloseButton",
+  componentId: "sc-16he39c-2"
+})(["width:3rem;height:3rem;position:absolute;top:2rem;right:2rem;fill:black;"]);
 
 var Menu = function Menu(props) {
+  var modalEl = react__WEBPACK_IMPORTED_MODULE_0___default.a.useRef(null);
+
   var _React$useContext = react__WEBPACK_IMPORTED_MODULE_0___default.a.useContext(_MenuContext__WEBPACK_IMPORTED_MODULE_2__["MenuContext"]),
       state = _React$useContext.state,
       dispatch = _React$useContext.dispatch;
 
+  if (state.opened === false) return null;
+
   var listener = function listener(e) {
-    if (!document.getElementById('modal-menu').contains(e.target)) {
-      dispatch({
-        type: 'close'
-      });
+    if (modalEl && modalEl.current && !modalEl.current.contains(e.target)) {
+      close();
     }
   };
 
-  react__WEBPACK_IMPORTED_MODULE_0___default.a.useEffect(function () {
-    if (state.opened === false) {
-      return null;
-    }
+  var close = function close() {
+    return dispatch({
+      type: 'close'
+    });
+  };
 
+  react__WEBPACK_IMPORTED_MODULE_0___default.a.useEffect(function () {
     window.addEventListener('click', listener);
     return function () {
       return window.removeEventListener('click', listener);
     };
   }, [state.opened]);
-  if (state.opened === false) return null;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StyledBackground, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 46
+      lineNumber: 58
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StyledWrapper, {
-    id: "modal-menu",
+    ref: modalEl,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 47
+      lineNumber: 59
     },
     __self: this
-  }, "MENU!!!!!"));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styles_Button__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    onClick: close,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 60
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Shared_Icon__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    icon: "cross",
+    el: StyledCloseButton,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 61
+    },
+    __self: this
+  }))));
 };
 
 Menu.propTypes = {};
@@ -448,8 +474,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MenuConsumer", function() { return MenuConsumer; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "prop-types");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 var _jsxFileName = "/home/michalhonc/git/reactjs/diplom/frontend/components/Menu/MenuContext.js";
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
@@ -465,19 +489,17 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
-
 var MenuContext = react__WEBPACK_IMPORTED_MODULE_0___default.a.createContext();
 var initialState = {
   opened: false
 };
 
 var reducer = function reducer(state, action) {
-  console.log('TCL: reducer -> action', action);
-  console.log('TCL: reducer -> state', state);
-
   switch (action.type) {
     case 'close':
-      return initialState;
+      return _objectSpread({}, state, {
+        opened: false
+      });
 
     case 'open':
       return _objectSpread({}, state, {
@@ -503,7 +525,7 @@ var MenuProvider = function MenuProvider(props) {
     value: value,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 28
+      lineNumber: 24
     },
     __self: this
   }, props.children);
@@ -553,7 +575,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n    @font-face {\n        font-family: 'radnika_next';\n        src: url('/static/radnikanext-medium-webfont.woff2')\n        format('woff2');\n        font-weight: normal;\n        font-style: normal;\n    }\n    html {\n        box-sizing: border-box;\n        font-size: 10px;\n    }\n\n    *, *:before, *:after {\n        box-sizing: inherit;\n    }\n\n    body {\n        padding: 0;\n        margin: 0;\n        font-size: 1.5rem;\n        line-height: 2;\n        height: 100%;\n        background-color: ", "\n    }\n\n    a {\n        text-decoration: none;\n        color: ", ";\n    }\n\n    h1 {\n        margin: 0;\n    }\n"]);
+  var data = _taggedTemplateLiteral(["\n    html {\n        box-sizing: border-box;\n        font-size: 10px;\n        font-family: 'Arial CE', Arial, 'Helvetica CE', Helvetica, sans-serif;\n        font-weight: normal;\n    }\n\n    *, *:before, *:after {\n        box-sizing: inherit;\n    }\n\n    body {\n        padding: 0;\n        margin: 0;\n        font-size: 1.5rem;\n        line-height: 2;\n        height: 100%;\n        background-color: ", "\n    }\n\n    a {\n        text-decoration: none;\n        color: ", ";\n    }\n\n    h1 {\n        font-size: 34px;\n        line-height: 48px;\n        margin: 0;\n    }\n    h2 {\n        font-size: 24px;\n        line-height: 32px;\n    }\n    h3 {\n        font-size: 20px;\n        line-height: 32px;\n    }\n    h4 {\n        font-size: 16px;\n        line-height: 24px;\n    }\n    h5 {\n        font-size: 14px;\n        line-height: 24px;\n    }\n    h6 {\n        font-size: 12px;\n        line-height: 24px;\n    }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -605,43 +627,43 @@ function (_Component) {
         theme: _styles_config_config__WEBPACK_IMPORTED_MODULE_4__["default"],
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 62
+          lineNumber: 79
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Menu_MenuContext__WEBPACK_IMPORTED_MODULE_5__["MenuProvider"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 63
+          lineNumber: 80
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StyledPage, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 64
+          lineNumber: 81
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Header_Meta__WEBPACK_IMPORTED_MODULE_3__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 65
+          lineNumber: 82
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Menu_Menu__WEBPACK_IMPORTED_MODULE_6__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 66
+          lineNumber: 83
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Header_Header__WEBPACK_IMPORTED_MODULE_2__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 67
+          lineNumber: 84
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Inner, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 68
+          lineNumber: 85
         },
         __self: this
       }, this.props.children))));

@@ -21,16 +21,11 @@ const Inner = styled.div`
 `;
 
 injectGlobal`
-    @font-face {
-        font-family: 'radnika_next';
-        src: url('/static/radnikanext-medium-webfont.woff2')
-        format('woff2');
-        font-weight: normal;
-        font-style: normal;
-    }
     html {
         box-sizing: border-box;
         font-size: 10px;
+        font-family: 'Arial CE', Arial, 'Helvetica CE', Helvetica, sans-serif;
+        font-weight: normal;
     }
 
     *, *:before, *:after {
@@ -52,7 +47,29 @@ injectGlobal`
     }
 
     h1 {
+        font-size: 34px;
+        line-height: 48px;
         margin: 0;
+    }
+    h2 {
+        font-size: 24px;
+        line-height: 32px;
+    }
+    h3 {
+        font-size: 20px;
+        line-height: 32px;
+    }
+    h4 {
+        font-size: 16px;
+        line-height: 24px;
+    }
+    h5 {
+        font-size: 14px;
+        line-height: 24px;
+    }
+    h6 {
+        font-size: 12px;
+        line-height: 24px;
     }
 `;
 

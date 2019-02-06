@@ -35,7 +35,7 @@ const StyledIcon = styled.svg`
     top: 50%;
     transform: translateY(-50%);
     right: 2rem;
-    fill: ${props => props.theme.color.black}
+    fill: ${props => props.theme.color.black};
 `;
 
 const SearchInput = () => {

@@ -110,6 +110,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "prop-types");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _ResultsList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ResultsList */ "./components/Results/ResultsList.js");
 
 var _jsxFileName = "/home/michalhonc/git/reactjs/diplom/frontend/components/Results/Results.js";
 
@@ -128,25 +129,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var url = 'https://api.github.com/users/gaearon/repos';
+
+var url = 'https://api.github.com/users/';
 var MAX_ITEM = 10;
-var NON_EXTENDED_ITEM = 5;
-var StyledListItem = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.li.withConfig({
-  displayName: "Results__StyledListItem",
-  componentId: "sc-1g02b5t-0"
-})(["list-style:none;display:flex;justify-content:space-between;border-bottom:2px solid #eee;padding:0.5rem;"]);
-var StyledList = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.ul.withConfig({
-  displayName: "Results__StyledList",
-  componentId: "sc-1g02b5t-1"
-})(["padding:0;margin:0;"]);
 var StyledWrapper = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.div.withConfig({
   displayName: "Results__StyledWrapper",
-  componentId: "sc-1g02b5t-2"
+  componentId: "sc-1g02b5t-0"
 })(["margin:2rem 3rem;"]);
-var StyledButton = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.button.withConfig({
-  displayName: "Results__StyledButton",
-  componentId: "sc-1g02b5t-3"
-})(["border:0;padding:0;margin:0;background-color:transparent;color:#999;font-size:1.4rem;line-height:2rem;text-decoration:underline;cursor:pointer;"]);
 
 var Results = function Results(props) {
   var _React$useState = react__WEBPACK_IMPORTED_MODULE_1___default.a.useState([]),
@@ -156,116 +145,226 @@ var Results = function Results(props) {
 
   var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_1___default.a.useState(false),
       _React$useState4 = _slicedToArray(_React$useState3, 2),
-      isExtended = _React$useState4[0],
-      setIsExtended = _React$useState4[1];
+      isError = _React$useState4[0],
+      useIsError = _React$useState4[1];
+
+  var _React$useState5 = react__WEBPACK_IMPORTED_MODULE_1___default.a.useState(false),
+      _React$useState6 = _slicedToArray(_React$useState5, 2),
+      isFetching = _React$useState6[0],
+      useIsFetching = _React$useState6[1];
+
+  var req =
+  /*#__PURE__*/
+  function () {
+    var _ref = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      var fetchUrl, response, out;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              fetchUrl = "".concat(url).concat(props.query, "/repos");
+              useIsFetching(true);
+              useIsError(false);
+              _context.prev = 3;
+              _context.next = 6;
+              return fetch(fetchUrl);
+
+            case 6:
+              _context.next = 8;
+              return _context.sent.json();
+
+            case 8:
+              response = _context.sent;
+              out = response.slice(0, MAX_ITEM).sort(function (a, b) {
+                return b.size - a.size;
+              });
+              useIsFetching(false);
+              useList(out);
+              _context.next = 18;
+              break;
+
+            case 14:
+              _context.prev = 14;
+              _context.t0 = _context["catch"](3);
+              useIsFetching(false);
+              useIsError(true);
+
+            case 18:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this, [[3, 14]]);
+    }));
+
+    return function req() {
+      return _ref.apply(this, arguments);
+    };
+  }();
 
   react__WEBPACK_IMPORTED_MODULE_1___default.a.useEffect(function () {
-    var req =
-    /*#__PURE__*/
-    function () {
-      var _ref = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response, out;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return fetch(url);
-
-              case 2:
-                _context.next = 4;
-                return _context.sent.json();
-
-              case 4:
-                response = _context.sent;
-                out = response.slice(0, MAX_ITEM).sort(function (a, b) {
-                  return b.size - a.size;
-                });
-                useList(out);
-
-              case 7:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-
-      return function req() {
-        return _ref.apply(this, arguments);
-      };
-    }();
-
     req();
-  }, []);
-  var listToRender = isExtended ? list : list.slice(0, NON_EXTENDED_ITEM);
+  }, [props.query]);
 
-  if (list.length === 0) {
+  if (isError) {
     return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 54
+        lineNumber: 38
       },
       __self: this
-    }, "Loading..");
+    }, "Jejda, spadlo to..", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+      onClick: req,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 38
+      },
+      __self: this
+    }, "Zkusit znova"));
+  }
+
+  if (isFetching) {
+    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 42
+      },
+      __self: this
+    }, "Na\u010D\xEDt\xE1m data..");
   }
 
   return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(StyledWrapper, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 58
+      lineNumber: 46
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(StyledList, {
+  }, Array.isArray(list) && list.length > 0 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_ResultsList__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    list: list,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 59
+      lineNumber: 48
+    },
+    __self: this
+  }));
+};
+
+Results.propTypes = {
+  query: prop_types__WEBPACK_IMPORTED_MODULE_3__["string"]
+};
+Results.defaultProps = {
+  query: 'gaearon'
+};
+/* harmony default export */ __webpack_exports__["default"] = (Results);
+
+/***/ }),
+
+/***/ "./components/Results/ResultsList.js":
+/*!*******************************************!*\
+  !*** ./components/Results/ResultsList.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "prop-types");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "styled-components");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_2__);
+var _jsxFileName = "/home/michalhonc/git/reactjs/diplom/frontend/components/Results/ResultsList.js";
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+var NON_EXTENDED_ITEM = 5;
+var StyledListItem = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.li.withConfig({
+  displayName: "ResultsList__StyledListItem",
+  componentId: "sc-1lpwubp-0"
+})(["list-style:none;display:flex;justify-content:space-between;border-bottom:2px solid #eee;padding:0.5rem;"]);
+var StyledList = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.ul.withConfig({
+  displayName: "ResultsList__StyledList",
+  componentId: "sc-1lpwubp-1"
+})(["padding:0;margin:0;"]);
+var StyledButton = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.button.withConfig({
+  displayName: "ResultsList__StyledButton",
+  componentId: "sc-1lpwubp-2"
+})(["border:0;padding:0;margin:0;background-color:transparent;color:#999;font-size:1.4rem;line-height:2rem;text-decoration:underline;cursor:pointer;"]);
+
+var ResultsList = function ResultsList(_ref) {
+  var list = _ref.list;
+
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(false),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      isExtended = _React$useState2[0],
+      setIsExtended = _React$useState2[1];
+
+  var listToRender = isExtended ? list : list.slice(0, NON_EXTENDED_ITEM);
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StyledList, {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 37
     },
     __self: this
   }, listToRender.map(function (item, index) {
-    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(StyledListItem, {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StyledListItem, {
       key: item.id,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 62
+        lineNumber: 40
       },
       __self: this
-    }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 63
+        lineNumber: 41
       },
       __self: this
-    }, index + 1, "."), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+    }, index + 1, "."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 64
+        lineNumber: 42
       },
       __self: this
-    }, item.full_name), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+    }, item.full_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 65
+        lineNumber: 43
       },
       __self: this
     }, item.size, "tis."));
-  })), isExtended ? null : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(StyledButton, {
+  })), !isExtended && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StyledButton, {
     onClick: function onClick() {
       return setIsExtended(true);
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 70
+      lineNumber: 49
     },
     __self: this
   }, "Zobrazit dal\u0161\xED"));
-};
+}; //ResultsList.propTypes = {
+//	
+//}
+//
+//ResultsList.defaultProps = {
+//	
+//}
 
-Results.propTypes = {};
-Results.defaultProps = {};
-/* harmony default export */ __webpack_exports__["default"] = (Results);
+
+/* harmony default export */ __webpack_exports__["default"] = (ResultsList);
 
 /***/ }),
 
@@ -320,7 +419,7 @@ var Submit = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.input.with
 var StyledIcon = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.svg.withConfig({
   displayName: "SearchInput__StyledIcon",
   componentId: "sc-1nu51op-3"
-})(["position:absolute;height:50%;margin:auto 0;top:50%;transform:translateY(-50%);right:2rem;fill:", ""], function (props) {
+})(["position:absolute;height:50%;margin:auto 0;top:50%;transform:translateY(-50%);right:2rem;fill:", ";"], function (props) {
   return props.theme.color.black;
 });
 

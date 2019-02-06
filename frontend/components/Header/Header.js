@@ -29,7 +29,6 @@ const Logo = styled.h1`
     a {
         padding: 0.5rem 1rem;
         color: white;
-        text-transform: uppercase;
         text-decoration: none;
     }
 `;
@@ -49,7 +48,10 @@ const Header = () => {
         <StyledHeader>
             <Logo>
                 <Link href="/">
-                    <StyledAnchor><StyledImg src="/static/icons/s-logo.png" /> Trends</StyledAnchor>
+                    <StyledAnchor>
+                        <StyledImg src="/static/icons/s-logo.png" />
+                        Trendy
+                    </StyledAnchor>
                 </Link>
             </Logo>
             <Nav />
