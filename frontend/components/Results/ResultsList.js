@@ -38,7 +38,7 @@ const ResultsList = ({ list }) => {
                 {listToRender.map((item, index) => {
                     return (
                         <StyledListItem key={item.id}>
-                            <span>{index + 1}.</span>
+                            <span>{index + 1},</span>
                             <span>{item.full_name}</span>
                             <span>{item.size}tis.</span>
                         </StyledListItem>
@@ -53,7 +53,7 @@ const ResultsList = ({ list }) => {
             }
         </> 
     )
-}
+};
 
 //ResultsList.propTypes = {
 //	

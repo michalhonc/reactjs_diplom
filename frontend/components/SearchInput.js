@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React  from 'react';
 import {  } from 'prop-types';
 import styled from 'styled-components';
 
@@ -18,14 +18,6 @@ const InputWrapper = styled.div`
     position: relative;
     margin: 0 auto;
     width: 100%;
-    `;
-
-const Submit = styled.input`
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    display: inline;
-    background-color: transparent;
 `;
 
 const StyledIcon = styled.svg`
@@ -38,33 +30,16 @@ const StyledIcon = styled.svg`
     fill: ${props => props.theme.color.black};
 `;
 
-const SearchInput = () => {
-    const [value, setValue] = useState('');
-
-    return (
-        <InputWrapper>
-            <form action="/test">
-                <Input
-                    type="input"
-                    value={value}
-                    onChange={(e) => setValue(e.target.value)}
-                    placeholder="Hledejte.."
-                    />
-                <label>
-                    <input type="submit" style={{ display: 'none' }} />
-                    <Icon icon='search' el={StyledIcon} />
-                </label>
-            </form>
-        </InputWrapper>
-    );
-};
-
-SearchInput.propTypes = {
-    
-}
-
-SearchInput.defaultProps = {
-    
-}
+const SearchInput = (props) => (
+    <InputWrapper>
+        <Input
+            type="input"
+            value={props.query}
+            onChange={(e) => props.setQuery(e.target.value)}
+            placeholder="Hledejte.."
+        />
+        <Icon icon='search' el={StyledIcon} />
+    </InputWrapper>
+);
 
 export default SearchInput;

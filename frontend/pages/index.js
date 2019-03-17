@@ -6,11 +6,13 @@ import SearchInput from '../components/SearchInput';
 import Results from '../components/Results/Results';
 
 const Index = () => {
+    const [query, setQuery] = React.useState('');
+
     return (
-        <div>
-            <SearchInput />
-            <Results />
-        </div>
+        <>
+            <SearchInput query={query} setQuery={setQuery} />
+            <Results query={query} />
+        </>
     );
 };
 

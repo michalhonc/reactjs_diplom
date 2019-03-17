@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { string } from 'prop-types';
 import ResultsList from './ResultsList';
+import useDebounce from '../../lib/useDebounce';
 
 const url = 'https://api.github.com/users/';
 const MAX_ITEM = 10;
@@ -14,9 +15,10 @@ const Results = (props) => {
     const [list, useList] = React.useState([]);
     const [isError, useIsError] = React.useState(false);
     const [isFetching, useIsFetching] = React.useState(false);
+    const debouncedQuery = useDebounce(props.query, 500);
 
     const req = async () => {
-        const fetchUrl = `${url}${props.query}/repos`;
+        const fetchUrl = `${url}${debouncedQuery}/repos`;
         useIsFetching(true);
         useIsError(false);
         try {
@@ -25,6 +27,7 @@ const Results = (props) => {
             useIsFetching(false);
             useList(out);
         } catch(e) {
+			console.log('TCL: }catch -> e', e)
             useIsFetching(false);
             useIsError(true);
         }
@@ -32,7 +35,7 @@ const Results = (props) => {
 
     React.useEffect(() => {
         req();
-    }, [props.query])
+    }, [debouncedQuery])
     
     if (isError) {
         return <p>Jejda, spadlo to..<button onClick={req}>Zkusit znova</button></p>

@@ -36,23 +36,29 @@ const StyledCloseButton = styled.svg`
 const Menu = (props) => {
     const modalEl = React.useRef(null);
     const { state, dispatch } = React.useContext(MenuContext)
-
-    if (state.opened === false) return null;
+    console.log('TCL: Menu -> state.opened', state.opened)
 
     const listener = (e) => {
-        if (modalEl && modalEl.current && !modalEl.current.contains(e.target)) {
-            close();
-        }
+		console.log('TCL: listener -> e', e.target)
+		console.log('TCL: listener -> e', modalEl.current)
+        // if (modalEl) {
+        //     if (!modalEl.current.contains(e.target)) {
+        //         close();
+        //     }
+        // }
     }
 
     const close = () => dispatch({ type: 'close' });
     
     React.useEffect(() => {
-        window.addEventListener('click', listener);
+        if (state.opened) {
+            window.addEventListener('click', listener);
+        }
 
         return () => window.removeEventListener('click', listener);
     }, [state.opened])
 
+    if (!state.opened) return null;
 
     return (
         <StyledBackground>
@@ -67,13 +73,5 @@ const Menu = (props) => {
         </StyledBackground>
     );
 };
-
-Menu.propTypes = {
-    
-}
-
-Menu.defaultProps = {
-    
-}
 
 export default Menu;
